@@ -1,6 +1,67 @@
-requests>=2.31
-pandas>=2.0
-numpy>=1.24
-networkx>=3.0
-scipy>=1.10
-statsmodels>=0.14
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Editors / OS
+.DS_Store
+.idea/
+.vscode/
+
+# --- Pipeline outputs and caches -------------------------------------------
+# Everything the scripts generate stays out of the repository. The two registry
+# files under data/ are tracked and are re-included at the bottom of this file.
+
+# step 01 extraction
+affil.csv
+affil_full.csv
+affil_cart.csv
+addr_uniq.csv
+addr_uniq_full.csv
+addr_uniq_cart.csv
+
+# step 02 geocoding and OSM features
+geocoded.csv
+enriched.csv
+geo_cache.json
+geo_cache.json.tmp
+geo_failed.txt
+overpass_cache.json
+overpass_cache.json.tmp
+
+# step 03/04 registry refresh (regenerated copies of the tracked data/ files)
+parks_wikidata.csv
+parks_wikidata_UNVERIFIED.csv
+parks_prelabel_checkpoint.csv
+parks_prelabel_checkpoint.meta.json
+wikidata_labels_cache.json
+wikidata_labels_cache.json.tmp
+park_polygons.json
+
+# steps 05-07 classification
+park_matches.csv
+combined.csv
+
+# steps 08-09 networks and maps
+nodes.json
+edges.json
+std_nodes.json
+std_edges.json
+network_map.html
+std_map.html
+
+# density covariates (steps 13-14)
+density_5000m.csv
+density_2000m_v2.csv
+density2000_lowerbound.csv
+density5000_cache.json
+density5000_provenance.json
+density2000v2_cache.json
+density2000v2_provenance.json
+
+# keep the registry data shipped with the repository
+!data/parks_wikidata.csv
+!data/park_polygons.json

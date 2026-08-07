@@ -1,30 +1,180 @@
-MIT License
+"""
+Fetch exact park boundaries for the registry entries that carry an OSM relation.
 
-Copyright (c) 2026 [YOUR NAME]
+Reads:  parks_wikidata.csv (step 03; only rows with an osm_relation_id).
+Writes: park_polygons.json, keyed by wikidata_id, each value a list of closed
+        rings [[lon, lat], ...] with MultiPolygon semantics -- a park made of
+        several detached sites yields several rings.
+Set before running: MAILTO. Only a handful of small, explicitly identified
+relations are requested, so this step is quick and light on the public
+Overpass mirrors.
+"""
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+import json
+import time
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+import requests
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+# Several public mirrors are listed simply so a failing one can be skipped; the
+# request volume here is far too small to need the cooldown logic used in step 02.
+OVERPASS_ENDPOINTS = [
+    "https://overpass-api.de/api/interpreter",
+    "https://overpass.private.coffee/api/interpreter",
+    "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+    "https://overpass.osm.ch/api/interpreter",
+]
 
----
-NOTE: MIT is chosen here as a permissive default suitable for academic code.
-Replace [YOUR NAME] with your name (or institution) before publishing, and
-change the license entirely if your journal or institution requires a
-different one (e.g. Apache-2.0, GPL-3.0). Data files under data/ are derived
-from OpenAlex (CC0), Wikidata (CC0), and OpenStreetMap (ODbL) — the ODbL
-share-alike/attribution terms apply to OSM-derived fields regardless of the
-code license chosen above.
+# OpenAlex, Nominatim and Overpass all ask for a contact address so they can
+# reach the operator of a script that misbehaves.
+MAILTO = "your-email@example.com"
+
+HEADERS = {
+    "User-Agent": f"micro-geo-innovation-mapper/0.1 ({MAILTO})"
+}
+
+
+def fetch_relation_geometry(relation_id, max_retries=3):
+    """Query one relation and return the raw `out geom` JSON."""
+    query = f"[out:json][timeout:60];relation({relation_id});out geom;"
+
+    for attempt in range(max_retries):
+        endpoint = OVERPASS_ENDPOINTS[attempt % len(OVERPASS_ENDPOINTS)]
+        try:
+            resp = requests.post(endpoint, data={"data": query}, headers=HEADERS, timeout=70)
+            if resp.status_code == 200:
+                return resp.json()
+            print(f"  relation {relation_id}: HTTP {resp.status_code} ({endpoint}), retrying...")
+        except Exception as e:
+            print(f"  relation {relation_id}: {e} ({endpoint}), retrying...")
+        time.sleep(5)
+    print(f"  relation {relation_id}: giving up; step 06 falls back to the distance threshold.")
+    return None
+
+
+def _chain_one_ring(remaining):
+    """
+    Take one way from `remaining` and extend it end-to-end for as long as
+    possible. Returns (ring_or_None, still_remaining).
+
+    A chain that does not close is discarded rather than force-closed: joining
+    loose ends produces a shape that looks like a polygon but is not guaranteed
+    to be the right one, which is worse than admitting the boundary is unknown
+    and letting the distance threshold decide.
+    """
+    chain = remaining.pop(0)
+    changed = True
+    while remaining and changed:
+        changed = False
+        for i, seg in enumerate(remaining):
+            if chain[-1] == seg[0]:
+                chain = chain + seg[1:]
+                remaining.pop(i)
+                changed = True
+                break
+            if chain[-1] == seg[-1]:
+                chain = chain + seg[::-1][1:]
+                remaining.pop(i)
+                changed = True
+                break
+            if chain[0] == seg[-1]:
+                chain = seg[:-1] + chain
+                remaining.pop(i)
+                changed = True
+                break
+            if chain[0] == seg[0]:
+                chain = seg[::-1][:-1] + chain
+                remaining.pop(i)
+                changed = True
+                break
+        if chain[0] == chain[-1]:
+            break
+
+    if chain[0] != chain[-1]:
+        return None, remaining  # does not close: discard rather than force it
+
+    return chain, remaining
+
+
+def assemble_polygon(relation_data):
+    """
+    Assemble the relation members into one or more independent closed rings and
+    return them as a list (MultiPolygon semantics, not a single polygon).
+
+    Only outer ways are used; inner rings (holes) are ignored, which is a safe
+    simplification for park boundaries. Unclosed fragments are dropped instead of
+    being merged into a convex hull: a hull over detached sites would swallow the
+    empty land between them and put outside institutions inside the park.
+    """
+    elements = relation_data.get("elements", [])
+    rel = next((e for e in elements if e["type"] == "relation"), None)
+    if rel is None:
+        return None
+
+    outer_ways = []
+    for member in rel.get("members", []):
+        # multipolygon relations use outer/inner roles, while many boundary
+        # relations mark their main ring with an empty role; accept both and
+        # exclude only explicit inner (hole) ways.
+        role = member.get("role", "")
+        if member.get("type") == "way" and role in ("outer", "") and "geometry" in member:
+            coords = [(pt["lon"], pt["lat"]) for pt in member["geometry"]]
+            if len(coords) >= 2:
+                outer_ways.append(coords)
+
+    if not outer_ways:
+        return None
+
+    rings = []
+    dropped_fragments = 0
+    remaining = outer_ways[:]
+    while remaining:
+        before = len(remaining)
+        ring, remaining = _chain_one_ring(remaining)
+        if ring is not None and len(ring) >= 4:  # 3 distinct points plus the closing point
+            rings.append(ring)
+        else:
+            dropped_fragments += before - len(remaining) or 1
+
+    if dropped_fragments:
+        print(f"  {dropped_fragments} way fragments could not be closed and were "
+              "dropped (the rings that did close are unaffected)")
+
+    if not rings:
+        return None
+
+    n_pieces = len(rings)
+    if n_pieces > 1:
+        print(f"  boundary consists of {n_pieces} detached areas; each is tested "
+              "separately rather than merged into one hull.")
+
+    return rings
+
+
+if __name__ == "__main__":
+    import pandas as pd
+
+    df_parks = pd.read_csv("parks_wikidata.csv")
+    has_osm = df_parks.dropna(subset=["osm_relation_id"])
+    print(f"{len(has_osm)} parks link an OSM relation ID; fetching boundaries...")
+
+    polygons = {}
+    for row in has_osm.itertuples():
+        rel_id = int(row.osm_relation_id)
+        print(f"fetching {row.name} (relation {rel_id})...")
+        data = fetch_relation_geometry(rel_id)
+        if data is None:
+            continue
+        rings = assemble_polygon(data)
+        if rings is None:
+            print(f"  {row.wikidata_id}: no usable outer-way geometry, skipping")
+            continue
+        polygons[row.wikidata_id] = rings
+        total_pts = sum(len(r) for r in rings)
+        print(f"  ok: {len(rings)} areas, {total_pts} vertices")
+        time.sleep(3)  # only a handful of requests; a polite pause is enough
+
+    with open("park_polygons.json", "w", encoding="utf-8") as f:
+        json.dump(polygons, f, ensure_ascii=False)
+
+    print(f"\ndone: exact boundaries for {len(polygons)}/{len(has_osm)} parks")
+    print("output: park_polygons.json")

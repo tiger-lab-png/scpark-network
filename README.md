@@ -1,306 +1,108 @@
-"""
-Build the science-park registry from Wikidata.
+# scpark-network
 
-Reads:  nothing (queries the Wikidata Query Service and the MediaWiki API).
-Writes: parks_wikidata.csv  one row per park with wikidata_id, lat, lon,
-                            osm_relation_id (where present), name and country.
-        Intermediate checkpoints (parks_prelabel_checkpoint.csv,
-        wikidata_labels_cache.json) let an interrupted run resume.
-Set before running: MAILTO, and CANDIDATE_CLASS_QIDS if the registry should
-cover further park classes. A copy of the resulting registry ships in data/, so
-this step only needs to be re-run to refresh it.
-The script refuses to overwrite parks_wikidata.csv when the self-check fails.
-"""
+Reproducible pipeline for *Micro-Geographic Proximity and Global Academic Collaboration Networks
+in an Emerging Semiconductor Field: An Open Pipeline Using OpenAlex, Wikidata, and OpenStreetMap*.
 
-import json
-import os
-import time
+This repository accompanies the paper's H1/H2 test of whether academic institutions located inside
+a formally designated science/technology park show higher co-affiliation network degree centrality
+than comparable institutions outside such parks, and whether any such association survives
+controlling for local infrastructure density and institution productivity.
 
-import pandas as pd
-import requests
+Case study: OpenAlex Topic **T10361** ("Silicon Carbide Semiconductor Technologies"), 2018–2024,
+5,000 works, 10,404 raw author-institution affiliation strings.
 
-WIKIDATA_SPARQL_URL = "https://query.wikidata.org/sparql"
-WIKIDATA_API_URL = "https://www.wikidata.org/w/api.php"
+## Pipeline overview
 
-# OpenAlex, Nominatim and Overpass all ask for a contact address so they can
-# reach the operator of a script that misbehaves; Wikidata likewise requires an
-# identifiable User-Agent.
-MAILTO = "your-email@example.com"
+Scripts in `pipeline/` are numbered in the order they must be run. Each stage reads the CSV/JSON
+files produced by the previous stage(s); all intermediate and final data files are provided in
+`data/` so the full pipeline does not need to be re-run to reproduce the analysis in `analysis/`.
 
-HEADERS = {
-    "User-Agent": f"micro-geo-innovation-mapper/0.1 ({MAILTO})",
-    "Accept": "application/sparql-results+json",
-}
+| Step | Script | Input | Output | Purpose |
+|---|---|---|---|---|
+| 1 | `01_fetch_openalex.py` | OpenAlex API (Topic T10361) | `affil.csv`, `addr_uniq.csv` | Extract works, authorships, and raw affiliation strings via cursor pagination |
+| 2 | `02_geocode_and_enrich.py` | `addr_uniq.csv` | `geocoded.csv`, `enriched.csv` | Nominatim geocoding (with address-simplification cascade) + Method B: OSM `is_in()` park tagging and infrastructure-density covariates via Overpass |
+| 2b | `02b_rerun_enrich_only.py` | `geocoded.csv` | `enriched.csv` | Lightweight entry point to re-run only the Method B / Overpass step without re-geocoding |
+| 3 | `03_fetch_wikidata_parks.py` | Wikidata Query Service (SPARQL) | `parks_wikidata.csv` | Authoritative ground-truth registry of 231 science/technology parks worldwide |
+| 4 | `04_fetch_park_polygons.py` | `parks_wikidata.csv` (P402 links) | `park_polygons.json` | Exact OSM polygon boundaries for the 10 parks with a linked OSM relation |
+| 5 | `05_match_parks_distance.py` | `geocoded.csv`, `parks_wikidata.csv` | `park_matches.csv` | Baseline haversine-distance park-proximity classification (Method A, distance-only) |
+| 6 | `06_apply_polygon_refinement.py` | `park_polygons.json` | `park_matches.csv` (updated) | Refines Method A with exact point-in-polygon containment where available (asymmetric confidence rule) |
+| 7 | `07_merge_method_a_b.py` | `park_matches.csv`, `enriched.csv` | `combined.csv` | Cross-validates Method A (Wikidata/polygon) against Method B (OSM keyword tagging); carries density covariates forward |
+| 8 | `08_build_entity_resolved_network.py` | `affil.csv`, `park_matches.csv` | `std_nodes.json`, `std_edges.json` | Institution-level co-affiliation network using OpenAlex's standardized institution field (primary analysis network) |
+| 9 | `09_build_naive_network.py` | `affil.csv`, `park_matches.csv` | `nodes.json`, `edges.json` | Same network built from raw, unresolved affiliation strings (methodological comparison network) |
 
-# Seed classes for "science park" / "technology park". wdt:P279* expands them to
-# their subclasses, which covers naming variants (research park, technopark, ...).
-CANDIDATE_CLASS_QIDS = [
-    "Q1976594",  # science park
-    "Q1281153",  # technology park
-]
+Scripts in `analysis/` reproduce all statistics reported in the paper's Results section:
 
-SUBCLASS_QUERY = """
-SELECT DISTINCT ?class WHERE {{
-  VALUES ?seed {{ {seeds} }}
-  ?class wdt:P279* ?seed .
-}}
-""".format(seeds=" ".join(f"wd:{q}" for q in CANDIDATE_CLASS_QIDS))
+| Script | Reproduces |
+|---|---|
+| `10_robustness_checks.py` | Mann-Whitney tests, negative binomial regression (Table 2), TOST equivalence test, VIF, distance-threshold sensitivity (Table 3), Hsinchu leave-one-park-out, label-permutation test, community composition, geocoding-failure-by-country, Holm-Bonferroni correction |
+| `11_institution_size_control.py` | Institution-productivity-controlled negative binomial regression (Table 4) with correctly MLE-estimated dispersion parameter and 5-predictor VIF diagnostics. Imports `10_robustness_checks.py` at runtime via `importlib` (its filename starts with a digit, so it cannot be imported with a plain `import` statement) — keep both files in the same directory. |
 
+## Setup
 
-def sparql_request(query, timeout=60, max_retries=3, use_post=False):
-    """Shared SPARQL helper; use POST for long queries that would blow the URL limit."""
-    for attempt in range(max_retries):
-        try:
-            if use_post:
-                resp = requests.post(
-                    WIKIDATA_SPARQL_URL,
-                    data={"query": query, "format": "json"},
-                    headers=HEADERS,
-                    timeout=timeout,
-                )
-            else:
-                resp = requests.get(
-                    WIKIDATA_SPARQL_URL,
-                    params={"query": query, "format": "json"},
-                    headers=HEADERS,
-                    timeout=timeout,
-                )
-            resp.raise_for_status()
-            return resp.json()
-        except Exception as e:
-            wait = 2 ** attempt
-            print(f"[wikidata retry {attempt + 1}/{max_retries}] {e}")
-            time.sleep(wait)
-    raise RuntimeError("Wikidata SPARQL query failed after repeated retries.")
+```bash
+pip install -r requirements.txt
+```
 
+Set your own contact email in the `MAILTO` constant near the top of `01_fetch_openalex.py` before
+running Step 1 (required to enter OpenAlex's "polite pool" for faster, more reliable API access).
+Nominatim (Step 2) and the public Overpass API (Steps 2, 4, 6) are rate-limited, third-party,
+volunteer-run services; re-running Steps 1–7 from scratch against live APIs can take several hours
+and is not required to reproduce the statistical results, since all intermediate outputs are
+included in `data/`.
 
-def fetch_subclasses():
-    """
-    Stage 1: expand the seed classes on their own. Keeping the P279* property
-    path in a query with no other joins is what makes it fast enough for the
-    public endpoint.
-    """
-    data = sparql_request(SUBCLASS_QUERY, timeout=60)
-    class_qids = [
-        b["class"]["value"].rsplit("/", 1)[-1]
-        for b in data["results"]["bindings"]
-    ]
-    class_qids = sorted(set(class_qids))
-    print(f"expanded to {len(class_qids)} class QIDs")
-    if len(class_qids) > 500:
-        print("  warning: unusually many classes, which can mean a seed QID sits "
-              "under a very general parent; spot-check a few class QIDs.")
-    return class_qids
+**Path convention:** every script reads/writes bare filenames (e.g. `pd.read_csv("affil.csv")`)
+rather than `data/affil.csv`, because they were developed and run with all data files and scripts
+in one flat working directory. To reproduce the analysis without editing paths, run scripts with
+`data/` as your working directory, e.g.:
 
+```bash
+cd data
+python ../analysis/10_robustness_checks.py
+python ../analysis/11_institution_size_control.py
+```
 
-def fetch_instances_for_classes(class_qids, timeout=90):
-    """
-    Stage 2: fetch the park items with VALUES + a direct wdt:P31 comparison
-    (indexed) instead of a property path, and POST because the QID list is long.
-    """
-    query = """
-    SELECT DISTINCT ?item ?coord ?osmRelation ?country WHERE {{
-      VALUES ?class {{ {classes} }}
-      ?item wdt:P31 ?class .
-      ?item wdt:P625 ?coord .
-      OPTIONAL {{ ?item wdt:P402 ?osmRelation . }}
-      OPTIONAL {{ ?item wdt:P17 ?country . }}
-    }}
-    """.format(classes=" ".join(f"wd:{q}" for q in class_qids))
-    return sparql_request(query, timeout=timeout, use_post=True)
+New output files (e.g. `ror_audit_mismatches.csv`) will be written into `data/` alongside the
+inputs. If you'd rather keep the folder split strictly read-only, copy the scripts you want to run
+into `data/` instead and run them from there.
 
+## Data
 
-LABEL_CACHE_FILE = "wikidata_labels_cache.json"
+See `data/README.md` for a description of every file, its provenance, and known limitations
+(most importantly: geocoding failure rate, ~9.3%; and OSM park-boundary polygon coverage limited
+to 10 of 231 candidate parks).
 
+## Known limitations / audit notes
 
-def _load_label_cache():
-    if os.path.exists(LABEL_CACHE_FILE):
-        with open(LABEL_CACHE_FILE, "r", encoding="utf-8") as f:
-            return json.load(f)
-    return {}
+- `Standardized_Institutions` in `affil.csv` is OpenAlex's own automated entity-resolution output,
+  not a manually verified ground truth. See the paper's Limitations section and any accompanying
+  ROR cross-validation audit for a quantified assessment of resid
 
+## Reproducing the reported results
 
-def _save_label_cache(cache):
-    # atomic replace, as in 02_geocode_and_enrich.py
-    tmp_path = LABEL_CACHE_FILE + ".tmp"
-    with open(tmp_path, "w", encoding="utf-8") as f:
-        json.dump(cache, f, ensure_ascii=False, indent=2)
-    os.replace(tmp_path, LABEL_CACHE_FILE)
+| Manuscript location | Script |
+|---|---|
+| Table 2 — node-identity comparison and effect sizes | `analysis/15_reviewer_response_analyses.py` |
+| Tables 3–5 — regressions, threshold sweep, productivity control | `analysis/10_robustness_checks.py`, `analysis/12_productivity_control_robustness.py` |
+| Exclusion caps, equivalence tests, power grid, fractional counting, country fixed effects, betweenness seed stability, country-stratified permutation, affiliation-multiplicity audit | `analysis/15_reviewer_response_analyses.py` |
+| Online Resource 1, Tables S4–S10 | `analysis/15_reviewer_response_analyses.py` |
+| Fig. 1 — analysis pipeline | `figures/fig1_analysis_pipeline.dot` (`dot -Tpng -Gdpi=300`) |
+| Fig. 3 — degree-centrality distributions | `figures/fig3_degree_distributions.py` |
 
+All random seeds are defined as module constants at the top of
+`analysis/15_reviewer_response_analyses.py` and are listed in Online Resource 1,
+Table S10. They are arbitrary integers fixed for reproducibility; the eight-digit
+form is a naming convention and encodes no execution date.
 
-def fetch_labels_batch(qids, batch_size=50, max_retries=3):
-    """
-    Stage 3: resolve labels through the MediaWiki wbgetentities API instead of
-    SPARQL's label service, which is markedly faster and more reliable. Labels
-    are cached, so a failure part-way through does not discard earlier work.
-    """
-    cache = _load_label_cache()
-    qids = list(dict.fromkeys(qids))  # deduplicate, preserving order
-    missing = [q for q in qids if q not in cache]
+### Installation
 
-    if missing:
-        print(f"{len(cache)} labels cached, {len(missing)} still to fetch...")
-        for i in range(0, len(missing), batch_size):
-            chunk = missing[i:i + batch_size]
-            entities = None
-            for attempt in range(max_retries):
-                try:
-                    resp = requests.get(
-                        WIKIDATA_API_URL,
-                        params={
-                            "action": "wbgetentities",
-                            "ids": "|".join(chunk),
-                            "props": "labels",
-                            # prefer English, then fall back to any of these
-                            # languages rather than displaying a bare QID
-                            "languages": "en|de|fr|ja|zh",
-                            "format": "json",
-                        },
-                        headers=HEADERS,
-                        timeout=30,
-                    )
-                    resp.raise_for_status()
-                    entities = resp.json().get("entities", {})
-                    break
-                except Exception as e:
-                    wait = 2 ** attempt
-                    print(f"  [label retry {attempt + 1}/{max_retries}] {e}")
-                    time.sleep(wait)
+```
+pip install -r requirements.txt
+```
 
-            if entities is None:
-                raise RuntimeError(
-                    f"label lookup failed after {max_retries} retries (items "
-                    f"{i}~{i + len(chunk)}). The {len(cache)} labels resolved so "
-                    f"far are cached in {LABEL_CACHE_FILE}; re-running this "
-                    f"script fetches only the remainder."
-                )
+Tested on Python 3.13.3. Reported estimates were independently reproduced under
+Python 3.11.15 with numpy 2.3.5, pandas 3.0.2, SciPy 1.17.1 and NetworkX 3.6.1.
 
-            for qid, ent in entities.items():
-                ent_labels = ent.get("labels", {})
-                label = None
-                for lang in ("en", "de", "fr", "ja", "zh"):
-                    if lang in ent_labels:
-                        label = ent_labels[lang]["value"]
-                        break
-                cache[qid] = label or qid
-            _save_label_cache(cache)
-            print(f"  labels {min(i + batch_size, len(missing))}/{len(missing)} "
-                  f"({len(cache)} cached in total)")
+### Supplementary material
 
-    return {q: cache.get(q, q) for q in qids}
-
-
-PRELABEL_CHECKPOINT_FILE = "parks_prelabel_checkpoint.csv"
-PRELABEL_CHECKPOINT_META_FILE = "parks_prelabel_checkpoint.meta.json"
-
-
-def _checkpoint_is_valid():
-    """
-    A checkpoint may only be reused when it was produced from the current
-    CANDIDATE_CLASS_QIDS; otherwise editing that list after a failed self-check
-    would have no effect.
-    """
-    if not (os.path.exists(PRELABEL_CHECKPOINT_FILE)
-            and os.path.exists(PRELABEL_CHECKPOINT_META_FILE)):
-        return False
-    with open(PRELABEL_CHECKPOINT_META_FILE, "r", encoding="utf-8") as f:
-        meta = json.load(f)
-    return meta.get("candidate_class_qids") == sorted(CANDIDATE_CLASS_QIDS)
-
-
-def _save_checkpoint(df):
-    df.to_csv(PRELABEL_CHECKPOINT_FILE, index=False, encoding="utf-8-sig")
-    with open(PRELABEL_CHECKPOINT_META_FILE, "w", encoding="utf-8") as f:
-        json.dump({"candidate_class_qids": sorted(CANDIDATE_CLASS_QIDS)}, f)
-
-
-def fetch_wikidata_parks():
-    """
-    Three stages: expand subclasses, fetch the items, then resolve labels. The
-    first two stages are checkpointed so a label failure does not force the
-    SPARQL queries to be repeated.
-    """
-    if _checkpoint_is_valid():
-        print(f"reusing checkpoint {PRELABEL_CHECKPOINT_FILE} (matches the current "
-              f"CANDIDATE_CLASS_QIDS); skipping the SPARQL stages...")
-        df = pd.read_csv(PRELABEL_CHECKPOINT_FILE)
-    else:
-        class_qids = fetch_subclasses()
-        data = fetch_instances_for_classes(class_qids)
-
-        rows = []
-        for b in data["results"]["bindings"]:
-            coord_str = b.get("coord", {}).get("value", "")
-            # Wikidata coordinates are WKT: "Point(lon lat)" -- longitude first
-            lat, lon = None, None
-            if coord_str.startswith("Point("):
-                try:
-                    lon_str, lat_str = coord_str[6:-1].split(" ")
-                    lat, lon = float(lat_str), float(lon_str)
-                except ValueError:
-                    item_id = b.get("item", {}).get("value", "?")
-                    print(f"  unparseable coordinate, skipping: {item_id} -> {coord_str!r}")
-
-            country_uri = b.get("country", {}).get("value")
-            country_qid = country_uri.rsplit("/", 1)[-1] if country_uri else None
-
-            rows.append({
-                "wikidata_id": b["item"]["value"].rsplit("/", 1)[-1],
-                "lat": lat,
-                "lon": lon,
-                "osm_relation_id": b.get("osmRelation", {}).get("value"),
-                "country_qid": country_qid,
-            })
-
-        df = pd.DataFrame(rows).dropna(subset=["lat", "lon"])
-        df = df.drop_duplicates(subset=["wikidata_id"])
-        _save_checkpoint(df)
-        print(f"checkpoint written to {PRELABEL_CHECKPOINT_FILE} ({len(df)} rows, labels pending)")
-
-    country_qids = set(df["country_qid"].dropna().unique())
-    print(f"{len(df)} park items retrieved, resolving labels...")
-    all_qids = list(df["wikidata_id"]) + list(country_qids)
-    labels = fetch_labels_batch(all_qids)
-
-    df["name"] = df["wikidata_id"].map(labels)
-    df["country"] = df["country_qid"].map(labels)
-    df = df.drop(columns=["country_qid"])
-    return df
-
-
-def self_check(df):
-    """
-    Known-case validation against Hsinchu Science Park (Q717461). This registry
-    is the ground truth for steps 05-07, so silently writing an unvalidated list
-    would be worse than failing loudly; the caller decides what to do with False.
-    """
-    hit = df[df["wikidata_id"] == "Q717461"]
-    if len(hit) > 0:
-        print(f"self-check passed: Hsinchu Science Park found -> {hit.iloc[0].to_dict()}")
-        return True
-    else:
-        print("self-check FAILED: Hsinchu Science Park (Q717461) is missing, so "
-              "CANDIDATE_CLASS_QIDS needs adjusting and this list cannot be "
-              "trusted. Check https://www.wikidata.org/wiki/Q717461 for the P31 "
-              "class it is actually filed under and add that QID.")
-        return False
-
-
-if __name__ == "__main__":
-    print("querying Wikidata for science and technology parks...")
-    df_parks = fetch_wikidata_parks()
-    print(f"{len(df_parks)} park entries with coordinates")
-
-    has_osm = df_parks["osm_relation_id"].notna().sum()
-    print(f"{has_osm} of them link an OSM relation ID (usable for exact polygons in step 04)")
-
-    if self_check(df_parks):
-        df_parks.to_csv("parks_wikidata.csv", index=False, encoding="utf-8-sig")
-        print("written to parks_wikidata.csv")
-    else:
-        df_parks.to_csv("parks_wikidata_UNVERIFIED.csv", index=False, encoding="utf-8-sig")
-        print("Self-check failed, so parks_wikidata.csv was NOT written and steps "
-              "05-07 cannot pick up a faulty ground truth. The result is in "
-              "parks_wikidata_UNVERIFIED.csv for inspection; fix "
-              "CANDIDATE_CLASS_QIDS and re-run.")
-        raise SystemExit(1)
+`docs/` contains Online Resource 1, the supplementary tables accompanying the
+manuscript.

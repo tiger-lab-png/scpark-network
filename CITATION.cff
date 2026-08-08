@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+title: "scpark-network: Analysis pipeline for science-park proximity and academic co-authorship networks"
+abstract: >-
+  Full analysis pipeline for a study of pseudo-replication in affiliation-string
+  networks: bibliometric extraction from OpenAlex, geocoding, micro-geographic
+  science-park classification against a Wikidata ground truth, construction of
+  naive and entity-resolved co-affiliation networks, and the fourteen-item
+  reporting protocol with its robustness, permutation, equivalence and power
+  analyses.
+type: software
+authors:
+  - family-names: Chang
+    given-names: Hung-Chi
+    email: dddsss5419@gmail.com
+    affiliation: "National Yang Ming Chiao Tung University; University of Technology Sydney"
+license: MIT
+repository-code: "https://github.com/tiger-lab-png/scpark-network"
+version: v1.0.1
+date-released: "2026-08-09"
+keywords:
+  - scientometrics
+  - bibliometrics
+  - entity resolution
+  - pseudo-replication
+  - science parks
+  - OpenAlex
+  - co-authorship networks

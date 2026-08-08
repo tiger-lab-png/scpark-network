@@ -1,0 +1,43 @@
+digraph pipeline {
+  graph [rankdir=TB, splines=ortho, nodesep=0.35, ranksep=0.42, bgcolor="white", fontname="DejaVu Sans"];
+  node  [shape=box, style="rounded,filled", fontname="DejaVu Sans", fontsize=10,
+         margin="0.20,0.13", penwidth=1.1, color="#7F9FD4", fillcolor="#EAF1FC"];
+  edge  [color="#5A5A5A", arrowsize=0.7, penwidth=1.0];
+
+  n1 [label=<<B>Phase 1 — Bibliometric extraction</B><BR/>OpenAlex API, cursor pagination, Topic filter<BR/>SiC: T10361, 54,671 works &#183; CAR-T: T11491, 5,000-work cap>];
+  n2 [label=<80,176 unique raw author&#8211;institution<BR/>affiliation strings extracted>, color="#A8A8A8", fillcolor="#F4F4F4"];
+  n3 [label=<<B>Phase 2 — Geocoding (Nominatim / OSM)</B><BR/>rate-limited, cached, address-simplification cascade<BR/>69,455 / 80,176 resolved (86.6%)>];
+
+  l1 [label=<<B>Micro-geographic park classification</B>>, shape=plaintext, style="", fillcolor="none", fontsize=10];
+
+  a  [label=<Method A — Wikidata ground truth<BR/>231 candidate parks (SPARQL query)<BR/>haversine distance, 500&#8211;5,000 m thresholds<BR/>+ point-in-polygon refinement for 10 parks<BR/><I>asymmetric trust rule: positive match overrides</I>>,
+      color="#E0A878", fillcolor="#FCEBDC"];
+  b  [label=<Method B — OSM cross-validation<BR/>Overpass is_in() keyword tagging<BR/>+ infrastructure-density covariates:<BR/>univ/institute count, station &amp; junction distance<BR/><I>independent validation only</I>>,
+      color="#E0A878", fillcolor="#FCEBDC"];
+
+  n4 [label=<<B>in_park_best_guess classification</B><BR/>2,491&#8211;2,500 of 69,455 geocoded records (~3.6%)<BR/>OSM used for covariates + cross-validation only>];
+
+  l2 [label=<<B>Network construction — two node-identity schemes</B>>, shape=plaintext, style="", fillcolor="none", fontsize=10];
+
+  c  [label=<Naive scheme<BR/>raw affiliation strings as nodes<BR/>80,176 nodes / 146,239 edges<BR/>(69,455 geocoded)>, color="#8FBC8F", fillcolor="#E6F2E6"];
+  d  [label=<Entity-resolved scheme (primary)<BR/>OpenAlex Standardized_Institutions<BR/>8,382 nodes / 47,742 edges<BR/>(7,886 geocoded)>, color="#8FBC8F", fillcolor="#E6F2E6"];
+
+  n5 [label=<<B>Table 2 — Mann&#8211;Whitney U tests</B><BR/>degree &amp; betweenness centrality, park vs. non-park<BR/>naive p = 8.9&#215;10&#8315;&#178;&#179; &#183; entity-resolved p = .0073<BR/>effect size essentially unchanged: r = .114 vs .121>];
+  n6 [label=<<B>Table 3 — Negative binomial regression (primary H2 test)</B><BR/>degree ~ park proximity + 3 density covariates, 2,000 m baseline<BR/>park coefficient: IRR = 1.151, p = .108 (not significant)>];
+  n7 [label=<<B>Headline specification — 5,000 m treatment &#215; 5,000 m density</B><BR/>scale- and vintage-matched covariate; Table 4 threshold sweep<BR/>IRR = 1.235, permutation p = .0092>];
+  n8 [label=<<B>TOST equivalence and twelve robustness checks</B><BR/>threshold sensitivity &#183; permutation, unrestricted and country-stratified<BR/>Holm&#8211;Bonferroni &#183; leave-one-park-out &#183; productivity (Table 5) &#183; country fixed effects<BR/>fractional counting &#183; node- and edge-identity audits &#183; misclassification simulation>];
+
+  n9 [label=<<B>Terminal verdict — consortium exclusion</B><BR/>0.33% of works listing &#8805; 10 institutions carry 48.6% of the log-effect<BR/>residual IRR = 1.1145, permutation p = .201 &#8212; fails the protocol>,
+      color="#C9A227", fillcolor="#FDF4DD", penwidth=1.8];
+
+  n10 [label=<<B>Cross-field test of the protocol's discriminating power</B><BR/>CAR-T cell-therapy research (T11491), Table 6>,
+       color="#B48EB4", fillcolor="#F5EAF5"];
+
+  n1 -> n2 -> n3 -> l1;
+  l1 -> a; l1 -> b;
+  a -> n4; b -> n4;
+  n4 -> l2;
+  l2 -> c; l2 -> d;
+  c -> n5; d -> n5;
+  n5 -> n6 -> n7 -> n8 -> n9 -> n10;
+}

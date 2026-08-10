@@ -45,8 +45,18 @@ def compute_vif(df, predictors):
     return vif_data
 
 
+def _load_affil_csv():
+    """2026-07-29：55k 規模檔名是 affil_full.csv，兩個都找找看，找不到才報錯。"""
+    import os
+    for candidate in ("affil.csv", "affil_full.csv"):
+        if os.path.exists(candidate):
+            print(f"讀取 {candidate}")
+            return pd.read_csv(candidate)
+    raise FileNotFoundError("找不到 affil.csv 或 affil_full.csv。")
+
+
 def main():
-    df_affil = pd.read_csv("affil.csv")
+    df_affil = _load_affil_csv()
     df_park = pd.read_csv("park_matches.csv")
     df_combined = pd.read_csv("combined.csv")
     nodes = json.load(open("std_nodes.json", encoding="utf-8"))

@@ -37,10 +37,24 @@ NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
 # - 新增 VK Maps（maps.mail.ru）：Wiki 上明寫沒有請求限制。
 # - overpass-api.de 官方主站留著當備援：政策是每天 <10,000 次查詢、<1GB
 #   都算安全，我們總共只需要 3,249 個不同座標，遠低於這個門檻。
+#
+# 2026-07-29 追加：mail.ru、private.coffee 持續逾時，連官方 overpass-api.de
+# 主站自己都開始回 504（比社群鏡像單獨不穩更少見，較可能是官方主站當下
+# 負載偏高，而非單一鏡像的問題）。追加以下三個 OSM Wiki 上列出的公開節點
+# 擴大候選池——這幾個「目前是否活著」我沒辦法從這個環境直接驗證（見對話
+# 說明），純粹是多給程式幾個選項，讓 _ordered_endpoints() 的冷卻機制有更
+# 多備援可以輪，就算其中幾個其實已經掛了或不再提供服務，程式遇到會自動
+# 標記冷卻、換下一個，不會造成任何損害：
+# - overpass.osm.ch（瑞士）
+# - lz4.overpass-api.de、z.overpass-api.de（官方自己的另外兩條路由，
+#   跟 overpass-api.de 主站可能共用後端，但仍值得一試）
 OVERPASS_ENDPOINTS = [
     "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
     "https://overpass.private.coffee/api/interpreter",
     "https://overpass-api.de/api/interpreter",
+    "https://overpass.osm.ch/api/interpreter",
+    "https://lz4.overpass-api.de/api/interpreter",
+    "https://z.overpass-api.de/api/interpreter",
 ]
 
 # Nominatim 政策要求提供可辨識的 User-Agent/Referer，並留聯絡方式
@@ -313,9 +327,42 @@ def _coord_key(lat, lon, precision=4):
     return f"{round(lat, precision)}_{round(lon, precision)}"
 
 
-def overpass_query(query, max_node_failures=len(OVERPASS_ENDPOINTS), max_rate_limit_waits=2):
+OVERPASS_ENDPOINT_COOLDOWN_SECONDS = 300  # 節點失敗後，5 分鐘內優先跳過它
+_endpoint_cooldown_until = {}  # endpoint -> 冷卻到期的 time.time() 時間戳（僅存在於本次執行的記憶體中）
+
+
+def _ordered_endpoints():
+    """
+    把最近失敗過、還在冷卻中的節點排到後面，優先試目前看起來還活著的節點。
+    這不是硬性排除——如果全部節點都在冷卻中（代表剛剛整輪都掛），還是會
+    照這個順序全部試一遍，不會直接放棄整筆查詢。
+
+    背景：原本每次呼叫 overpass_query() 都是從 OVERPASS_ENDPOINTS[0] 重新
+    試起，完全沒有「這個節點剛剛才逾時」的記憶。遇到像 2026-07 這次
+    mail.ru、private.coffee 同時長時間逾時的情況，等於每一個新座標都要
+    重新白白燒兩個 30 秒 timeout 才繞得到還活著的節點，是 ETA 一直往上跳
+    的主因之一。加上這個記憶後，同一輪失敗只會付一次「找出誰還活著」的
+    代價，之後的查詢會直接優先打已知還活著的節點。
+    """
+    now = time.time()
+    healthy = [e for e in OVERPASS_ENDPOINTS if _endpoint_cooldown_until.get(e, 0) <= now]
+    cooling = [e for e in OVERPASS_ENDPOINTS if _endpoint_cooldown_until.get(e, 0) > now]
+    return healthy + cooling
+
+
+def _mark_endpoint_failed(endpoint):
+    _endpoint_cooldown_until[endpoint] = time.time() + OVERPASS_ENDPOINT_COOLDOWN_SECONDS
+
+
+def overpass_query(query, max_node_failures=4, max_rate_limit_waits=2):
     """
     對 Overpass 送出查詢。實測發現兩種失敗性質完全不同，分開處理：
+
+    2026-07-29 備註：max_node_failures 從「等於節點池大小」改成固定上限 4。
+    節點池現在有 6 個候選（見 OVERPASS_ENDPOINTS），但單一次查詢不該因為
+    候選變多就跟著把最壞情況拉長到 6 個 30 秒逾時——固定上限讓單筆查詢的
+    最壞等待時間維持在可預期的範圍，多出來的候選是拿來讓「不同查詢之間」
+    輪換、分散風險用的，不是要每筆查詢都全部試過一輪。
 
     - 429（Too Many Requests）：節點本身是活的，只是嫌你問太快。這種情況
       應該「等完 Retry-After 之後繼續打同一個節點」，不該馬上換節點——
@@ -324,19 +371,23 @@ def overpass_query(query, max_node_failures=len(OVERPASS_ENDPOINTS), max_rate_li
       輪，沒必要在同一個過載節點上死等太久，改成最多等 2 輪就換節點，
       把時間分給還沒試過的鏡像）。
     - 其他錯誤（連線逾時、406 等）：代表這個節點本身有問題，換下一個節點，
-      最多換 max_node_failures 次（預設等於鏡像站數量，每個都試過一輪）。
+      最多換 max_node_failures 次（預設等於鏡像站數量，每個都試過一輪），
+      並記錄冷卻時間，讓後續查詢優先跳過它（見 _ordered_endpoints）。
 
     回傳 elements 清單；所有節點都試過還是失敗才回傳 None（呼叫端要自行
     處理「沒查到」跟「查詢失敗」的差別，不要混為一談）。
     """
+    endpoints = _ordered_endpoints()
+
     for node_attempt in range(max_node_failures):
-        endpoint = OVERPASS_ENDPOINTS[node_attempt % len(OVERPASS_ENDPOINTS)]
+        endpoint = endpoints[node_attempt % len(endpoints)]
 
         for rate_limit_attempt in range(max_rate_limit_waits):
             try:
                 resp = requests.post(endpoint, data={"data": query}, headers=HEADERS, timeout=30)
             except Exception as e:
                 print(f"[overpass 節點錯誤 {node_attempt + 1}/{max_node_failures}，換節點] {endpoint}: {e}")
+                _mark_endpoint_failed(endpoint)
                 break  # 換節點，不是這個節點的 429 問題
 
             if resp.status_code == 429:
@@ -352,10 +403,12 @@ def overpass_query(query, max_node_failures=len(OVERPASS_ENDPOINTS), max_rate_li
                 return resp.json().get("elements", [])
             except Exception as e:
                 print(f"[overpass 節點錯誤 {node_attempt + 1}/{max_node_failures}，換節點] {endpoint}: {e}")
+                _mark_endpoint_failed(endpoint)
                 break  # 換節點
         else:
             # 429 等滿 max_rate_limit_waits 次還沒放行，放棄這個節點換下一個
             print(f"[overpass {endpoint} 429 太多次，放棄這個節點]")
+            _mark_endpoint_failed(endpoint)
 
         time.sleep(2)  # 換節點前稍微停一下
 
@@ -512,7 +565,7 @@ if __name__ == "__main__":
     # 讀取 Phase 1 產出的去重地址清單（檔名已縮短為 addr_uniq.csv，
     # 理由見 phase1_openalex_fetch.py 開頭註解：Windows 深層路徑 + 長檔名
     # 容易超過 260 字元導致 FileNotFoundError）
-    addr_df = pd.read_csv("addr_uniq.csv")
+    addr_df = pd.read_csv("addr_uniq_full.csv")
     addresses = addr_df["Raw_Affiliation"].dropna().tolist()
 
     print(f"共 {len(addresses)} 筆地址待處理（Nominatim 1 req/sec,請耐心等待）...")

@@ -334,8 +334,18 @@ def null_model_comparison(nodes, n_perm=5000, seed=42):
     p_perm = count_ge / n_perm
     print(f"排列檢定 p 值（{n_perm} 次隨機重貼標籤，雙尾）= {p_perm:.4f}")
     print(f"隨機貼標籤情況下，組間差異的平均值/標準差 = {diffs.mean():.3f} / {diffs.std():.3f}")
-    print("（跟 Mann-Whitney U 的 p = .090 方向一致、量級接近，兩種完全不同假設"
-          "的檢定方法互相印證，不是同一個檢定套殼重跑。）")
+
+    # 2026-07-29 修正：這句原本寫死引用 5,000 筆版本的 Mann-Whitney p=.090
+    # 做比較，是會直接被貼進論文的一句話，換一批資料還照抄舊數字會產生
+    # 錯誤的敘述。改成當場從同一份 nodes 動態算一次 Mann-Whitney，用真的
+    # 對應這次資料的數字來說明兩種方法是否互相印證。
+    _park_deg = deg[is_park]
+    _nonpark_deg = deg[~is_park]
+    _, p_mw_ref = stats.mannwhitneyu(_park_deg, _nonpark_deg, alternative="two-sided")
+    same_direction = "方向一致" if (p_perm < 0.05) == (p_mw_ref < 0.05) else "結論方向不一致，需要留意"
+    print(f"（對照：同一份資料的 entity-resolved Mann-Whitney U 的 p = {p_mw_ref:.4g}，"
+          f"跟排列檢定{same_direction}，兩種完全不同假設的檢定方法互相印證，"
+          f"不是同一個檢定套殼重跑。）")
     return p_perm
 
 
@@ -429,8 +439,18 @@ def holm_bonferroni(pvalue_dict, alpha=0.05):
         print(f"{name[:40]:40s} {p:>10.4g} {threshold:>10.4g} {'是' if significant else '否':>8s}")
 
 
+def _load_affil_csv():
+    """2026-07-29：55k 規模檔名是 affil_full.csv，兩個都找找看，找不到才報錯。"""
+    import os
+    for candidate in ("affil.csv", "affil_full.csv"):
+        if os.path.exists(candidate):
+            print(f"讀取 {candidate}")
+            return pd.read_csv(candidate)
+    raise FileNotFoundError("找不到 affil.csv 或 affil_full.csv。")
+
+
 if __name__ == "__main__":
-    df_affil = pd.read_csv("affil.csv")
+    df_affil = _load_affil_csv()
     df_park = pd.read_csv("park_matches.csv")
     df_combined = pd.read_csv("combined.csv")
     df_geocoded = pd.read_csv("geocoded.csv")
@@ -484,10 +504,36 @@ if __name__ == "__main__":
 
     null_model_comparison(nodes)
 
-    holm_bonferroni({
-        "naive degree Mann-Whitney": 2.098e-06,
-        "entity-resolved degree Mann-Whitney": 0.090,
+    # 2026-07-29 修正：這裡原本是兩個寫死的 5,000 筆版本舊數字
+    # （naive=2.098e-06、entity-resolved=0.090），只有迴歸係數是動態算的。
+    # 55k 規模下直接照抄舊數字會混進一個「兩個舊 + 一個新」湊出來的假校正
+    # 結果，而且不會報錯、看起來完全正常，是最容易被忽略的錯誤。改成：
+    # entity-resolved 的 Mann-Whitney 直接從這次的 df 動態算；naive 的
+    # Mann-Whitney 需要 09_build_naive_network.py 的輸出（nodes.json，
+    # 注意不是 std_nodes.json），檔案不存在就明確印警告、跳過這個檢定，
+    # 不能用舊數字頂替。
+    import os as _os
+    park_deg_er = df.loc[df["in_science_park"] == 1, "degree"]
+    nonpark_deg_er = df.loc[df["in_science_park"] == 0, "degree"]
+    _, p_entity_resolved = stats.mannwhitneyu(park_deg_er, nonpark_deg_er, alternative="two-sided")
+
+    pvalue_dict = {
+        "entity-resolved degree Mann-Whitney": p_entity_resolved,
         "NB regression park coefficient (proper alpha)": diag["nb_model"].pvalues["in_science_park"],
-    })
+    }
+
+    if _os.path.exists("nodes.json"):
+        naive_nodes = json.load(open("nodes.json", encoding="utf-8"))
+        naive_park = [n["degree"] for n in naive_nodes if n.get("in_science_park")]
+        naive_nonpark = [n["degree"] for n in naive_nodes if not n.get("in_science_park")]
+        _, p_naive = stats.mannwhitneyu(naive_park, naive_nonpark, alternative="two-sided")
+        pvalue_dict["naive degree Mann-Whitney"] = p_naive
+    else:
+        print("\n⚠ 找不到 nodes.json（09_build_naive_network.py 的輸出），"
+              "Holm-Bonferroni 校正這次先跳過 naive network 那一項，"
+              "只用 entity-resolved + 迴歸係數兩項算——先跑完 09，"
+              "再重跑這支腳本補齊完整的三項校正。")
+
+    holm_bonferroni(pvalue_dict)
 
     print("\n完成。把上面全部輸出貼回去，我會整合進論文。")

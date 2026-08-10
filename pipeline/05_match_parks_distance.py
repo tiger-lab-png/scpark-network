@@ -24,12 +24,15 @@
 
 import math
 
+import numpy as np
 import pandas as pd
 
 MATCH_RADIUS_M = 2000  # 跟 Phase 2 方法 B 的密度搜尋半徑保持一致，方便比較
 
 
 def haversine(lat1, lon1, lat2, lon2):
+    """純量版本，保留給其他地方需要單點計算時使用；批次比對改用下面的
+    向量化版本，語意（球面距離公式）完全一樣，只是同時對整個陣列算。"""
     R = 6371000  # 公尺
     phi1, phi2 = math.radians(lat1), math.radians(lat2)
     dphi = math.radians(lat2 - lat1)
@@ -38,34 +41,43 @@ def haversine(lat1, lon1, lat2, lon2):
     return 2 * R * math.asin(math.sqrt(a))
 
 
-def find_nearest_park(lat, lon, parks_df):
-    """對單一座標，算出跟所有園區的距離，回傳最近的一筆跟距離。"""
-    dists = parks_df.apply(
-        lambda p: haversine(lat, lon, p["lat"], p["lon"]), axis=1
-    )
-    idx = dists.idxmin()
-    return parks_df.loc[idx, "name"], parks_df.loc[idx, "wikidata_id"], dists[idx]
-
-
 def match_all(df_geocoded, df_parks):
-    results = []
-    valid = df_geocoded.dropna(subset=["Latitude", "Longitude"])
+    """
+    2026-07-29 向量化重寫：原本的寫法是「每一筆機構座標」都跑一次
+    parks_df.apply(...)（231 個園區逐一算距離），外層再用 Python for 迴圈
+    跑過所有機構座標——在 5,000 篇論文、約 9,440 筆有效座標的規模下幾秒鐘
+    能跑完，但 55,000 篇論文規模下有效座標膨脹到近 7 萬筆，等於要跑
+    7 萬 × 231 次「逐列 pandas apply」，實測這種寫法在 pandas 裡開銷很大，
+    很容易拖到數十分鐘。改成 numpy 廣播：把「每個機構」跟「每個園區」的
+    距離一次算成一個 (機構數 × 231) 的矩陣，數學上跟原本逐筆算 haversine
+    完全等價，只是不用 Python 層級的逐列迴圈，通常幾秒內就能跑完全部。
+    """
+    valid = df_geocoded.dropna(subset=["Latitude", "Longitude"]).reset_index(drop=True)
 
-    for i, row in enumerate(valid.itertuples(), 1):
-        name, wikidata_id, dist = find_nearest_park(row.Latitude, row.Longitude, df_parks)
-        results.append({
-            "Raw_Affiliation": row.Raw_Affiliation,
-            "Latitude": row.Latitude,
-            "Longitude": row.Longitude,
-            "nearest_park_name": name,
-            "nearest_park_wikidata_id": wikidata_id,
-            "distance_to_park_m": round(dist, 1),
-            "in_science_park_gt": dist <= MATCH_RADIUS_M,
-        })
-        if i % 500 == 0:
-            print(f"已比對 {i}/{len(valid)}")
+    R = 6371000.0
+    lat1 = np.radians(valid["Latitude"].to_numpy())[:, None]      # (N, 1)
+    lon1 = np.radians(valid["Longitude"].to_numpy())[:, None]     # (N, 1)
+    lat2 = np.radians(df_parks["lat"].to_numpy())[None, :]        # (1, M)
+    lon2 = np.radians(df_parks["lon"].to_numpy())[None, :]        # (1, M)
 
-    return pd.DataFrame(results)
+    dphi = lat2 - lat1
+    dlambda = lon2 - lon1
+    a = np.sin(dphi / 2) ** 2 + np.cos(lat1) * np.cos(lat2) * np.sin(dlambda / 2) ** 2
+    dist_matrix = 2 * R * np.arcsin(np.sqrt(np.clip(a, 0, 1)))    # (N, M)，跟純量版 haversine 數學等價
+
+    nearest_idx = np.argmin(dist_matrix, axis=1)
+    nearest_dist = dist_matrix[np.arange(len(valid)), nearest_idx]
+
+    results = pd.DataFrame({
+        "Raw_Affiliation": valid["Raw_Affiliation"],
+        "Latitude": valid["Latitude"],
+        "Longitude": valid["Longitude"],
+        "nearest_park_name": df_parks["name"].to_numpy()[nearest_idx],
+        "nearest_park_wikidata_id": df_parks["wikidata_id"].to_numpy()[nearest_idx],
+        "distance_to_park_m": np.round(nearest_dist, 1),
+        "in_science_park_gt": nearest_dist <= MATCH_RADIUS_M,
+    })
+    return results
 
 
 if __name__ == "__main__":

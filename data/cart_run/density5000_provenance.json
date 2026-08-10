@@ -1,0 +1,1778 @@
+[
+ {
+  "utc_time": "2026-08-06T19:33:01.289894+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:33:41.835869+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:37:23.471419+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:37:59.487754+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:41:30.525150+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:42:16.712378+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:43:33.303306+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:44:54.404329+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:45:40.556902+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:46:28.613369+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:47:09.268064+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:47:50.228263+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:48:25.347825+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:49:00.304515+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:52:07.786271+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:53:08.690975+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:53:58.047108+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:54:25.033248+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:54:51.052175+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:57:44.150267+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T19:59:56.143485+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:02:25.033548+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:03:14.903911+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:04:09.291058+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:04:59.658552+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:05:46.353959+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:06:15.430299+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:06:45.248388+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:07:13.085396+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:10:20.388743+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:11:09.514851+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:12:21.121475+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:13:12.527745+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:13:59.194782+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:14:46.876257+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:15:21.612876+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:15:49.599313+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:16:24.719521+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:20:30.376881+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:21:21.689462+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:22:18.305595+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:23:06.030955+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:24:00.056145+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:25:10.307289+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:26:03.794308+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:27:02.269587+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:27:29.398551+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:28:07.701658+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:28:53.272861+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:29:33.602544+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:30:03.497590+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:30:37.711454+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:31:27.862180+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:32:05.573007+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:32:47.898815+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:33:19.196497+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:36:43.544723+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:37:35.928494+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:40:55.161735+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:41:37.482727+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:42:04.632571+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:42:53.454629+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:46:07.718336+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:48:36.946286+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:49:57.502012+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:50:56.279312+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:51:47.786394+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:52:28.442341+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:52:56.056338+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:53:23.122112+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:53:49.336985+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:56:31.734924+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T20:57:11.684977+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:00:16.823763+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:01:21.435343+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:01:54.744548+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:02:46.545642+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:05:25.639514+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:06:23.170973+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:07:16.116802+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:08:09.994262+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:09:00.905445+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:12:52.328210+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:13:41.076466+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:14:34.939225+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:15:29.832358+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:16:33.726642+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:17:36.084594+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:18:05.574320+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:18:44.859833+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:22:25.881478+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:23:16.467961+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:23:42.885075+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:24:12.587006+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:24:40.536767+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:25:21.769187+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:29:01.481170+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:29:52.036204+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:30:44.275210+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:31:47.581713+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:32:48.166604+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:33:49.916062+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:34:54.589226+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:35:45.931976+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:36:31.420625+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:38:00.293269+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:38:44.604794+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:39:11.719139+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:39:42.888844+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:40:49.856742+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:45:05.369676+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:45:48.269519+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:46:56.867016+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:47:58.616450+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:48:51.553149+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:49:37.330733+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:50:31.797916+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:51:19.846845+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:52:18.349055+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:53:04.634776+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:53:59.876630+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:54:44.218949+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:55:36.955383+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:56:21.496962+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:57:02.886847+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T21:59:01.158910+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:01:04.370920+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:02:43.259528+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:05:10.404466+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:05:54.945850+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:06:48.938916+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:07:50.857634+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:08:36.768906+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:09:27.835907+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:10:13.506080+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:11:19.140964+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:12:20.784991+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:13:09.352317+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:14:03.301421+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:14:53.163015+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:15:42.720541+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:16:33.102620+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:17:31.827564+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:18:34.138572+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:19:34.862632+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:20:21.047244+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:21:10.611309+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:24:11.550918+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:24:53.800495+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:26:25.795612+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:27:22.512434+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:28:04.872720+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:29:11.889920+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:31:57.986251+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:33:01.272698+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:33:50.415444+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:34:47.046951+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:35:31.591040+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:36:37.227764+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:37:31.401574+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:38:14.333837+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:39:23.944687+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:44:44.763270+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:48:05.135648+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:49:01.291100+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:49:52.986921+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:50:37.221063+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:52:06.924090+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:52:52.801534+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:53:50.043514+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:54:33.414149+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:55:29.087495+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:56:15.043082+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:56:58.712698+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T22:59:13.122748+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:01:21.530416+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:03:23.895933+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:04:28.208569+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:05:11.110411+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:05:47.520138+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:08:38.273012+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:09:40.221123+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:10:26.606320+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:11:22.923471+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:12:28.049714+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:14:33.955711+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:15:40.668778+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:16:38.425108+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:17:27.882786+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:18:21.077186+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:19:19.845584+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:19:51.649865+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:23:11.129462+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:25:32.665478+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:26:11.923635+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:27:39.213386+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:28:21.816137+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:29:28.703454+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:29:55.025429+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:30:38.923900+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:31:08.826613+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:33:32.091239+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:35:47.290687+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:36:30.472524+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:37:29.248722+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:38:14.810803+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:39:02.213578+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:40:08.890514+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:41:09.732305+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:43:37.890284+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:44:34.924956+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:45:22.154096+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:46:22.499936+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:47:13.331601+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:48:08.222953+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:49:09.267228+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:50:09.054037+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:50:56.576713+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:52:53.059971+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:54:20.551607+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:55:25.267657+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:56:26.099859+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:57:25.283563+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:58:17.922881+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-06T23:59:30.726064+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:00:33.905090+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:01:34.220836+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:02:19.273926+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:04:56.760263+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:06:50.632839+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:07:40.710092+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:08:28.940999+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:08:58.536104+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:09:29.972990+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:11:24.122712+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:12:57.647414+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:14:56.310758+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:16:52.777446+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:17:40.470331+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:18:21.431295+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:18:55.717257+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:19:36.490813+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:20:03.340148+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:20:35.196905+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:21:01.393410+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:21:28.112224+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:22:15.988787+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:22:42.040214+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:23:08.414389+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:23:34.777266+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:24:04.317780+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:24:32.122071+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:26:38.075361+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:27:26.303101+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:28:17.423441+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:29:07.271565+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:30:00.212654+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:30:49.978520+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:31:57.256078+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:32:47.548433+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:35:27.795673+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:37:11.056385+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:38:20.644435+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:39:58.441636+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:41:36.639072+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:42:24.804536+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:43:13.665466+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:44:14.333373+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:45:18.294899+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:46:18.753665+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:47:07.185855+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:48:05.657616+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:49:07.508460+00:00",
+  "endpoint": "https://overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:50:09.561252+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:51:04.018848+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:52:04.942173+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:52:49.613036+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:53:46.534708+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:54:48.604363+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:56:07.863656+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:57:05.930032+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:58:22.416112+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:58:56.372024+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T00:59:23.044711+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T01:01:41.175798+00:00",
+  "endpoint": "https://lz4.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T01:02:29.786526+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T01:03:36.284432+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T01:04:33.750313+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T01:05:27.277748+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T01:08:07.333882+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T01:09:09.196027+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T01:11:21.073002+00:00",
+  "endpoint": "https://z.overpass-api.de/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T01:12:21.896042+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T01:13:06.815248+00:00",
+  "endpoint": "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T01:13:40.027711+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 8,
+  "radius_m": 5000
+ },
+ {
+  "utc_time": "2026-08-07T01:15:23.664519+00:00",
+  "endpoint": "https://overpass.private.coffee/api/interpreter",
+  "n_coords": 4,
+  "radius_m": 5000
+ }
+]

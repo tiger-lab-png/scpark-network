@@ -1,0 +1,35 @@
+# Decompressed copies produced by prepare_data.py — the .gz files are the deposit.
+data/cart_run/addr_uniq_full.csv
+data/cart_run/affil_full.csv
+data/cart_run/combined.csv
+data/cart_run/edges.json
+data/cart_run/enriched.csv
+data/cart_run/geo_cache.json
+data/cart_run/geocoded.csv
+data/cart_run/nodes.json
+data/cart_run/park_matches.csv
+data/cart_run/std_edges.json
+data/full_run/addr_uniq_full.csv
+data/full_run/affil_full.csv
+data/full_run/combined.csv
+data/full_run/edges.json
+data/full_run/enriched.csv
+data/full_run/geo_cache.json
+data/full_run/geocoded.csv
+data/full_run/nodes.json
+data/full_run/overpass_cache.json
+data/full_run/park_matches.csv
+data/full_run/std_edges.json
+data/pilot_5000/affil.csv
+data/pilot_5000/edges.json
+data/pilot_5000/nodes.json
+
+# Analysis outputs
+reviewer_response_results.json
+reviewer_response_tables.csv
+reviewer_response_power.csv
+reviewer_response_betweenness_seeds.csv
+
+__pycache__/
+*.pyc
+.DS_Store

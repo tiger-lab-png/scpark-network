@@ -16,8 +16,8 @@ authors:
     affiliation: "National Yang Ming Chiao Tung University; University of Technology Sydney"
 license: MIT
 repository-code: "https://github.com/tiger-lab-png/scpark-network"
-version: v1.0.1
-date-released: "2026-08-09"
+version: v1.0.2
+date-released: "2026-08-10"
 keywords:
   - scientometrics
   - bibliometrics

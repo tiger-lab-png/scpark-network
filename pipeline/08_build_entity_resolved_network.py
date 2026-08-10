@@ -41,6 +41,18 @@ def split_institutions(value):
 
 
 def build_std_network(df_affil):
+    """
+    2026-07-29 修正：邊上除了原本的 weight（兩機構共同掛名論文數，原始
+    次數，保留給輸出/顯示用，語意不變），另外加一個 inv_weight
+    （= 1/weight）——這個才是餵給 betweenness_centrality() 的距離。
+
+    背景：NetworkX 的 weight 參數語意是「距離」，數字越大代表這條邊越
+    難走；但論文方法論寫的是「co-occurring paper count, as an inverse
+    path cost」，也就是合作次數越多、路徑成本要越低。原本這裡直接把
+    weight（合作次數）丟給 betweenness_centrality，等於次數越多的邊被
+    演算法當成越難走，方向剛好跟論文文字描述相反。改成用 inv_weight，
+    才是文字描述真正對應的做法。
+    """
     G = nx.Graph()
     for paper_id, group in df_affil.dropna(subset=["Standardized_Institutions"]).groupby("Paper_ID"):
         insts = set()
@@ -56,15 +68,17 @@ def build_std_network(df_affil):
                     G[a][b]["weight"] += 1
                 else:
                     G.add_edge(a, b, weight=1)
+    for u, v, d in G.edges(data=True):
+        d["inv_weight"] = 1.0 / d["weight"]
     return G
 
 
 def compute_sna_metrics(G):
     degree = dict(G.degree())
     if G.number_of_nodes() > 3000:
-        betweenness = nx.betweenness_centrality(G, k=500, weight="weight", seed=42)
+        betweenness = nx.betweenness_centrality(G, k=500, weight="inv_weight", seed=42)
     else:
-        betweenness = nx.betweenness_centrality(G, weight="weight")
+        betweenness = nx.betweenness_centrality(G, weight="inv_weight")
     communities = list(nx.algorithms.community.greedy_modularity_communities(G, weight="weight"))
     community_map = {}
     for cid, members in enumerate(communities):
@@ -170,8 +184,20 @@ def assemble_edges(G, nodes):
 
 
 def generate_html(nodes, edges, template_path=TEMPLATE_PATH, out_path=OUTPUT_HTML_PATH):
-    with open(template_path, "r", encoding="utf-8") as f:
-        html = f.read()
+    """
+    2026-07-29 加防呆：map_tpl.html 只是拿來產生互動地圖視覺化用的樣板，
+    不影響 std_nodes.json / std_edges.json 這兩個真正拿去做統計分析的
+    輸出，也不影響下面 compare_park_vs_nonpark() 印出的檢定結果。原本這裡
+    是 open() 沒包 try/except，樣板檔案找不到就會讓整支腳本在最後一步
+    崩潰，連前面已經算好的統計結果都看不到、JSON 也沒機會寫出來。
+    """
+    try:
+        with open(template_path, "r", encoding="utf-8") as f:
+            html = f.read()
+    except FileNotFoundError:
+        print(f"⚠ 找不到樣板檔案 {template_path}，略過互動地圖 HTML 產出"
+              f"（不影響 std_nodes.json / std_edges.json 跟下面的統計結果）")
+        return
     html = html.replace("__NODES_JSON__", json.dumps(nodes, ensure_ascii=False))
     html = html.replace("__EDGES_JSON__", json.dumps(edges, ensure_ascii=False))
     with open(out_path, "w", encoding="utf-8") as f:
@@ -203,8 +229,23 @@ def compare_park_vs_nonpark(nodes):
         print("\n沒裝 scipy，跳過檢定。安裝：pip install scipy")
 
 
+def _load_affil_csv():
+    """
+    2026-07-29：55k 規模這邊檔名是 affil_full.csv（沿用 02/phase1 那邊為了
+    避開 Windows 260 字元路徑限制而加 _full 後綴的命名習慣），不是原本
+    5k 版本的 affil.csv。這裡兩個檔名都找找看，找不到才真的報錯，這樣
+    同一支腳本兩種規模的資料都能直接用，不用手動改檔名或複製一份。
+    """
+    import os
+    for candidate in ("affil.csv", "affil_full.csv"):
+        if os.path.exists(candidate):
+            print(f"讀取 {candidate}")
+            return pd.read_csv(candidate)
+    raise FileNotFoundError("找不到 affil.csv 或 affil_full.csv，請確認機構關聯資料檔案在目前資料夾裡。")
+
+
 if __name__ == "__main__":
-    df_affil = pd.read_csv("affil.csv")
+    df_affil = _load_affil_csv()
     df_park = pd.read_csv("park_matches.csv")
 
     G = build_std_network(df_affil)

@@ -27,9 +27,15 @@ import time
 
 import requests
 
+# 2026-07-29 更新：overpass.kumi.systems 已正式遷移到 overpass.private.coffee
+# （見 02_geocode_and_enrich.py 的說明），舊網域留著只會白白浪費一次重試。
+# 換成跟 02 一致、目前確認還在運作的節點池（只查 10 個左右的已知 relation，
+# 量體很小，這裡不需要像 02 那樣做冷卻/優先順序機制，單純多幾個候選輪流試）。
 OVERPASS_ENDPOINTS = [
     "https://overpass-api.de/api/interpreter",
-    "https://overpass.kumi.systems/api/interpreter",
+    "https://overpass.private.coffee/api/interpreter",
+    "https://maps.mail.ru/osm/tools/overpass/api/interpreter",
+    "https://overpass.osm.ch/api/interpreter",
 ]
 
 HEADERS = {

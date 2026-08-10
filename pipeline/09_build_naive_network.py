@@ -52,6 +52,14 @@ def build_institution_network(df_affil):
                 else:
                     G.add_edge(a, b, weight=1)
 
+    # 2026-07-29：跟 08_build_entity_resolved_network.py 同一個修正，理由
+    # 也完全一樣——weight 對 NetworkX 來說是「距離」，直接把共同掛名論文數
+    # 當距離丟給 betweenness_centrality 語意是反的，這裡補一個 inv_weight
+    # （=1/weight）給 betweenness 用，weight 本身保留給 degree(weight=...)
+    # 或輸出顯示用，語意不變。
+    for u, v, d in G.edges(data=True):
+        d["inv_weight"] = 1.0 / d["weight"]
+
     return G
 
 
@@ -59,10 +67,14 @@ def compute_sna_metrics(G):
     """回傳 dict: {node: {degree, betweenness, community}}"""
     degree = dict(G.degree())
     if G.number_of_nodes() > 3000:
-        # 大圖用抽樣版本節省時間
-        betweenness = nx.betweenness_centrality(G, k=500, weight="weight", seed=42)
+        # 大圖用抽樣版本節省時間。2026-07-29 提醒：naive（原始字串）網絡的
+        # 節點數通常遠大於 entity-resolved 版本（5k 規模時是 10,404 vs
+        # 2,663，約 4 倍），55k 規模下這裡的 greedy_modularity_communities
+        # 很可能是整條 pipeline最慢的一步，先有心理準備，卡很久是預期內、
+        # 不代表壞掉。
+        betweenness = nx.betweenness_centrality(G, k=500, weight="inv_weight", seed=42)
     else:
-        betweenness = nx.betweenness_centrality(G, weight="weight")
+        betweenness = nx.betweenness_centrality(G, weight="inv_weight")
 
     communities = list(nx.algorithms.community.greedy_modularity_communities(G, weight="weight"))
     community_map = {}
@@ -143,12 +155,29 @@ def assemble_edges(G, nodes):
 
 
 def generate_html(nodes, edges, template_path=TEMPLATE_PATH, out_path=OUTPUT_HTML_PATH):
-    with open(template_path, "r", encoding="utf-8") as f:
-        html = f.read()
+    """2026-07-29 加防呆，跟 08 同一個理由：樣板檔案不存在時不該讓已經
+    寫好的 nodes.json / edges.json 連帶陪葬、腳本崩潰在最後一步。"""
+    try:
+        with open(template_path, "r", encoding="utf-8") as f:
+            html = f.read()
+    except FileNotFoundError:
+        print(f"⚠ 找不到樣板檔案 {template_path}，略過互動地圖 HTML 產出"
+              f"（不影響 nodes.json / edges.json）")
+        return
     html = html.replace("__NODES_JSON__", json.dumps(nodes, ensure_ascii=False))
     html = html.replace("__EDGES_JSON__", json.dumps(edges, ensure_ascii=False))
     with open(out_path, "w", encoding="utf-8") as f:
         f.write(html)
+
+
+def _load_affil_csv():
+    """2026-07-29：跟 08 一樣，55k 規模檔名是 affil_full.csv，兩個都找找看。"""
+    import os
+    for candidate in ("affil.csv", "affil_full.csv"):
+        if os.path.exists(candidate):
+            print(f"讀取 {candidate}")
+            return pd.read_csv(candidate)
+    raise FileNotFoundError("找不到 affil.csv 或 affil_full.csv。")
 
 
 if __name__ == "__main__":
@@ -156,7 +185,7 @@ if __name__ == "__main__":
     # 超過 260 字元導致 FileNotFoundError。方法 B（enriched.csv）還在等
     # 自架 Overpass 跑完，先用方法 A（park_matches.csv，Wikidata 權威清單）
     # 讓 Phase 3 產出完整成果。
-    df_affil = pd.read_csv("affil.csv")
+    df_affil = _load_affil_csv()
     df_geo = pd.read_csv("park_matches.csv")
 
     G = build_institution_network(df_affil)

@@ -67,14 +67,14 @@ FORMULA = "degree ~ in_science_park + " + " + ".join(COVARIATES)
 
 TREATMENT_RADIUS_M = 5000
 EXCLUSION_CAPS = (6, 8, 10, 15)
-POWER_GRID_IRR = (1.10, 1.15, 1.25, 1.50)
+POWER_GRID_IRR = (1.10, 1.1145, 1.15, 1.25, 1.50)
 EQUIVALENCE_BOUND = (0.80, 1.25)
 
 N_PERMUTATIONS = 5000
 N_BOOTSTRAP = 2000
 N_EFFECT_SIZE_BOOTSTRAP = 2000
-N_POWER_SIMULATIONS = 3000
-N_PERMUTATION_NULL = 3000
+N_POWER_SIMULATIONS = 5000
+N_PERMUTATION_NULL = 5000
 BETWEENNESS_PIVOTS = 500
 BETWEENNESS_SEEDS = (42, 1, 7, 2026)
 
@@ -791,10 +791,10 @@ def main():
     results["node_scheme_effect_size"] = {
         "naive": effect_size_bootstrap(naive),
         "entity_resolved": effect_size_bootstrap(resolved),
+        "collapse_ratio": len(naive) / len(resolved),
     }
-    results["node_scheme_effect_size"]["collapse_ratio"] = (
-        len(naive) / len(resolved))
-    for label, s_ in results["node_scheme_effect_size"].items():
+    for label in ("naive", "entity_resolved"):
+        s_ = results["node_scheme_effect_size"][label]
         print(f"{label:16s} rank-biserial r = {s_['rank_biserial']:.4f} "
               f"[{s_['ci95_low']:.4f}, {s_['ci95_high']:.4f}]  "
               f"Mann-Whitney p = {s_['mann_whitney_p']:.4g}  n = {s_['n']}", flush=True)

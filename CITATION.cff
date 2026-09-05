@@ -3,26 +3,34 @@ message: "If you use this software, please cite it using the metadata below."
 title: "scpark-network: Analysis pipeline for science-park proximity and academic co-authorship networks"
 abstract: >-
   Full analysis pipeline for a study of pseudo-replication in affiliation-string
-  networks: bibliometric extraction from OpenAlex, geocoding, micro-geographic
-  science-park classification against a Wikidata ground truth, construction of
-  naive and entity-resolved co-affiliation networks, and the fourteen-item
-  reporting protocol with its robustness, permutation, equivalence and power
-  analyses.
+  co-authorship networks: bibliometric extraction from OpenAlex, geocoding,
+  micro-geographic science-park classification against a Wikidata ground truth,
+  construction of naive and entity-resolved co-affiliation networks, the
+  hyperauthorship (institution-count cap and fractional-counting) analyses, and
+  the fourteen-item reporting protocol with its robustness, permutation,
+  equivalence and power analyses. Accompanies the Short Communication
+  "Pseudo-replication in affiliation-string co-authorship networks: node identity
+  manufactures certainty, hyperauthorship manufactures effect" (Hung-Chi Chang,
+  submitted to the Journal of Informetrics, September 2026).
 type: software
 authors:
   - family-names: Chang
     given-names: Hung-Chi
     email: dddsss5419@gmail.com
+    orcid: "https://orcid.org/0000-0002-1326-0675"
     affiliation: "National Yang Ming Chiao Tung University; University of Technology Sydney"
 license: MIT
 repository-code: "https://github.com/tiger-lab-png/scpark-network"
-version: v1.0.2
-date-released: "2026-08-10"
+version: v1.1.0
+date-released: "2026-09-05"
 keywords:
   - scientometrics
+  - informetrics
   - bibliometrics
   - entity resolution
   - pseudo-replication
+  - hyperauthorship
+  - fractional counting
   - science parks
   - OpenAlex
   - co-authorship networks

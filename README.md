@@ -1,16 +1,22 @@
 # scpark-network
 
-Reproducible pipeline for **"Pseudo-Replication in Affiliation-String Networks:
-A Reporting Protocol for Small Spatial Effects in Bibliometrics"**
-(Hung-Chi Chang, submitted to *Scientometrics*).
+Reproducible pipeline for **"Pseudo-replication in affiliation-string co-authorship
+networks: node identity manufactures certainty, hyperauthorship manufactures effect"**
+(Hung-Chi Chang, Short Communication submitted to the *Journal of Informetrics*,
+September 2026). The full fourteen-item reporting protocol and every robustness
+check are given in the Supplementary Material (`docs/`).
 
-The paper shows that building institution-level collaboration networks from raw
-affiliation strings commits pseudo-replication in Hurlbert's (1984) sense: the
-effect estimate is left essentially unchanged while the *p* value is inflated by
-twenty orders of magnitude. It packages the diagnostic into a fourteen-item
-reporting protocol and stress-tests that protocol on a substantive question —
-whether research institutions inside designated science parks occupy more central
-positions in the global co-authorship network.
+The paper shows two ways an affiliation-string network manufactures a small effect.
+Treating raw strings as nodes commits pseudo-replication in Hurlbert's (1984)
+sense: the node set inflates 9.6-fold, the standardized effect is unchanged
+(rank-biserial *r* = .114 vs .121) while the *p* value moves twenty orders of
+magnitude, and fragmentation that differs between arms biases the estimate.
+At the edge level, the 0.33% of works listing ten or more institutions carry
+48.6% of the log-effect of a spatial covariate that had survived every check
+conditioning on the units, and fractional counting removes 38.0% without
+discarding a work. The science-park proximity question is the test-bed; the
+fourteen-item reporting protocol from which the checks are drawn is Table S9 of
+the Supplementary Material.
 
 Everything reported in the manuscript can be re-executed from this repository.
 
@@ -37,8 +43,8 @@ them will not reproduce anything.
 
 | Directory | Contents | Where it appears in the paper |
 |---|---|---|
-| `data/full_run/` | **Full silicon-carbide population.** 54,671 works, 80,176 unique raw affiliation strings, 69,455 geocoded, 8,382 standardized institutions of which **7,886** carry valid coordinates. | **All inferential results.** Abstract, Tables 2–5, Figs. 1 and 3, Online Resource 1 (S1–S11). |
-| `data/cart_run/` | CAR-T cell-therapy cross-field probe (capped sample). | Table 6 and the cross-field probe section. |
+| `data/full_run/` | **Full silicon-carbide population.** 54,671 works, 80,176 unique raw affiliation strings, 69,455 geocoded, 8,382 standardized institutions of which **7,886** carry valid coordinates. | **All inferential results.** Abstract, Table 1, Figures 1–2, Supplementary Material S1–S19. |
+| `data/cart_run/` | CAR-T cell-therapy cross-field probe (capped sample). | Section 3.4 and Supplementary Material S15, S19 (Table S12). |
 | `data/pilot_5000/` | The initial 5,000-work cursor-paginated sample: 10,404 raw strings, 2,663 standardized institutions (2,598 with coordinates). | Retained as the *designed sample-size comparison* described in Methodology, which separates effect-size stability from sample-size-driven changes in significance. It is **not** the analysis frame. |
 
 Scripts read bare filenames, so run them from the directory holding the inputs:
@@ -84,17 +90,19 @@ be re-executed to reproduce any reported statistic.
 
 | Manuscript location | Run from | Script |
 |---|---|---|
-| Table 2 — node-identity comparison, effect sizes | `data/full_run/` | `analysis/15_reviewer_response_analyses.py` |
-| Tables 3–5 — regressions, threshold sweep, productivity control | `data/full_run/` | `analysis/10_robustness_checks.py`, `analysis/12_productivity_control_robustness.py` |
-| Table 6 — CAR-T cross-field probe | `data/cart_run/` | `analysis/10_robustness_checks.py`, `analysis/15_reviewer_response_analyses.py` |
+| Table 1 — node-identity comparison, effect sizes (Section 3.1) | `data/full_run/` | `analysis/15_reviewer_response_analyses.py` |
+| Figure 2 and Supplementary Table S1 — institution-count caps, fractional counting, joint perturbation, 2,000 m rows, placebo row (Section 3.3) | `data/full_run/` | `analysis/15_reviewer_response_analyses.py`, `analysis/16_review_response_2026_09.py`; plotted by `figures/fig2_forest_caps.py` |
+| Supplementary S20–S22 and Figure S1 — placebo exclusion, covariate attenuation, geography of hyperauthored works, 5,000-work subsample benchmark, permutation-null diagnostics, catchment clustering, sandwich SEs; CAR-T cap and fractional rows of Table S12 | `data/full_run/`, `data/cart_run/` | `analysis/16_review_response_2026_09.py`, `analysis/17_review_response_round2.py` (outputs in `analysis/review_response_2026_09/`) |
+| Section 3.2 and Supplementary Tables S10–S11 — baseline regression, threshold sweep, productivity control | `data/full_run/` | `analysis/10_robustness_checks.py`, `analysis/12_productivity_control_robustness.py` |
+| Section 3.4 and Supplementary Table S12 — CAR-T cross-field probe | `data/cart_run/` | `analysis/10_robustness_checks.py`, `analysis/15_reviewer_response_analyses.py` |
 | Exclusion caps, equivalence tests, power grid, fractional counting, country fixed effects, betweenness seed stability, stratified permutation, affiliation-multiplicity audit | `data/full_run/` | `analysis/15_reviewer_response_analyses.py` |
-| Online Resource 1, Tables S4–S10 | `data/full_run/` | `analysis/15_reviewer_response_analyses.py` |
-| Fig. 1 — analysis pipeline | — | `figures/fig1_analysis_pipeline.dot` (`dot -Tpng -Gdpi=300`) |
-| Fig. 3 — degree-centrality distributions | `data/full_run/` | `figures/fig3_degree_distributions.py` |
+| Supplementary Material, Tables S1–S8 | `data/full_run/` | `analysis/15_reviewer_response_analyses.py` |
+| Figure 1 — degree-centrality distributions under one labelling rule | `data/full_run/` | `figures/fig1_degree_distributions.py` (the older `fig3_degree_distributions.py` and its `fig3_data.json` are retained for reference) |
+| Analysis-pipeline diagram (not in the Short Communication) | — | `figures/fig1_analysis_pipeline.dot` (`dot -Tpng -Gdpi=300`) |
 
 All random seeds are module constants at the top of
-`analysis/15_reviewer_response_analyses.py` and are listed in Online Resource 1,
-Table S10. They are arbitrary integers fixed for reproducibility; the eight-digit
+`analysis/15_reviewer_response_analyses.py` and are listed in the Supplementary
+Material, Table S8 (S14). They are arbitrary integers fixed for reproducibility; the eight-digit
 form is a naming convention and encodes no execution date.
 
 ---
@@ -124,8 +132,8 @@ re-using this code are:
 - `Standardized_Institutions` is OpenAlex's own automated entity-resolution
   output, not a manually verified ground truth. Residual fragmentation was
   audited against ROR identifiers on a 5,000-work pilot extraction
-  (Online Resource 1, S1); the full-population re-audit is out of scope and the
-  claims in the paper are qualified accordingly.
+  (Supplementary Material S1); the full-population, edge-network audit of
+  residual fragmentation is reported in S13.
 - Geocoding succeeds for 86.6% of the 80,176 raw affiliation strings in the full
   population. Failure is not geographically random; rates are tabulated by
   institution country in the Results.
@@ -139,8 +147,9 @@ re-using this code are:
 
 ## Supplementary material
 
-`docs/` contains Online Resource 1, the supplementary tables accompanying the
-manuscript.
+`docs/Supplementary_Material.docx` is the supplement accompanying the Short
+Communication (Sections S0–S22, Tables S0–S12, Figure S1); Table S0 indexes it
+by main-text section.
 
 ## Licence and citation
 

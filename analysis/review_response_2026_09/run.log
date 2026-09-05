@@ -1,0 +1,61 @@
+[      0s] loading full run
+[      6s] headline IRR 1.2348 p 1.19e-04 n 7886 treated 504
+[      6s] A. placebo exclusion
+[      6s]    >=10 cap: 156 works, tie share 0.1739, IRR 1.1146, removed 0.486
+[      6s]    all draw 0: IRR 1.2779 removed -0.162 works 4117 n 7381
+[     31s]    all draw 200: IRR 1.2590 removed -0.092 works 3950 n 7364
+[     55s]    all draw 400: IRR 1.2391 removed -0.016 works 4262 n 7424
+[     80s]    all draw 600: IRR 1.2406 removed -0.022 works 3934 n 7405
+[    104s]    all draw 800: IRR 1.2145 removed 0.079 works 4111 n 7364
+[    128s]    all draw 1000: IRR 1.2501 removed -0.058 works 4108 n 7389
+[    152s]    all draw 1200: IRR 1.2043 removed 0.119 works 3901 n 7427
+[    176s]    all draw 1400: IRR 1.2950 removed -0.226 works 4243 n 7386
+[    201s]    all draw 1600: IRR 1.2156 removed 0.074 works 4250 n 7400
+[    227s]    all draw 1800: IRR 1.2473 removed -0.048 works 4542 n 7405
+[    252s]    small draw 0: IRR 1.2461 removed -0.043 works 4993 n 7325
+[    276s]    small draw 200: IRR 1.2469 removed -0.046 works 5007 n 7315
+[    300s]    small draw 400: IRR 1.2437 removed -0.034 works 5044 n 7325
+[    324s]    small draw 600: IRR 1.2555 removed -0.079 works 4869 n 7317
+[    347s]    small draw 800: IRR 1.2385 removed -0.014 works 5023 n 7305
+[    372s]    small draw 1000: IRR 1.2408 removed -0.023 works 4986 n 7296
+[    396s]    small draw 1200: IRR 1.2602 removed -0.096 works 5000 n 7338
+[    420s]    small draw 1400: IRR 1.2399 removed -0.019 works 5051 n 7351
+[    444s]    small draw 1600: IRR 1.2627 removed -0.106 works 5186 n 7363
+[    468s]    small draw 1800: IRR 1.2650 removed -0.115 works 5021 n 7353
+[    492s]    placebo (all): removed mean 0.002, p 0.0005
+[    492s]    placebo (k<10): removed mean -0.080, p 0.0005
+[    492s] B. covariate coefficients
+[    492s]    {"park": 0.4857845651414009, "log_univ": 0.36358515494753185, "log_station": 0.0644424083011409, "log_junction": 0.05869462253008728}
+[    492s] C. 2,000 m rows
+[    557s]    2000m full: n 7886 treated 187 IRR 1.1514 p 0.1070 perm 0.2697
+[    616s]    2000m cap10: n 7611 treated 180 IRR 1.0450 p 0.6123 perm 0.7287
+[    690s]    2000m fractional: n 7886 treated 187 IRR 1.0074 p 0.9421 perm 0.9654
+[    690s] D. CAR-T
+[    733s]    CAR-T headline: n 4819 treated 479 IRR 1.1178 p 0.0619 perm 0.1514
+[    760s]    CAR-T cap10: n 3421 treated 360 IRR 1.0071 p 0.8946 perm 0.9286
+[    806s]    CAR-T fractional: n 4819 treated 479 IRR 1.0254 p 0.6663 perm 0.8196
+[    806s] E. subsamples
+[    814s]    subsample 0: n 2137 treated 153 IRR 1.101 p 0.252 perm 0.376 prod 1.046
+[    853s]    subsample 5: n 2193 treated 162 IRR 1.101 p 0.258 perm 0.383 prod 1.076
+[    892s]    subsample 10: n 2190 treated 157 IRR 1.203 p 0.027 perm 0.086 prod 1.152
+[    932s]    subsample 15: n 2142 treated 155 IRR 1.150 p 0.113 perm 0.209 prod 1.118
+[    972s]    subsample 20: n 2269 treated 157 IRR 1.084 p 0.353 perm 0.469 prod 1.064
+[   1011s]    subsample 25: n 2166 treated 176 IRR 1.240 p 0.010 perm 0.050 prod 1.254
+[   1051s]    subsample 30: n 2116 treated 163 IRR 1.001 p 0.993 perm 0.997 prod 1.066
+[   1090s]    subsample 35: n 2239 treated 148 IRR 1.027 p 0.755 perm 0.822 prod 0.969
+[   1129s]    subsample 40: n 2194 treated 160 IRR 1.218 p 0.018 perm 0.056 prod 1.259
+[   1169s]    subsample 45: n 2206 treated 150 IRR 1.151 p 0.120 perm 0.226 prod 0.951
+[   1201s]    subsamples: pass clause1 0.44, 1-3 0.20, all four 0.02
+[   1201s] F. naive network permutation
+[   1575s]    naive: n 69455 IRR 1.1886 model p 1.52e-17 perm p 0.00020 null sd 0.0303
+[   1575s] G. null diagnostics
+[   1699s]    density_quintile: perm p 0.0110 sd 0.0814
+[   1760s]    density_decile: perm p 0.0140 sd 0.0797
+[   1822s]    Freedman-Lane: perm p 0.0102
+[   1824s] H. catchment clustering
+[   1893s]    catchment-clustered SE 0.0896 p 0.0186; country-clustered p 0.0552; catchment perm p 0.0138
+[   1893s] I. sandwich SEs
+[   1919s]    model 0.0548 HC0 0.0869 HC3 0.0869 bootstrap 0.0851
+[   1919s] J. geography
+[   1921s]    >=10: same-country 0.625, <50km 0.161; 2-9: 0.623, 0.245
+[   1921s] done

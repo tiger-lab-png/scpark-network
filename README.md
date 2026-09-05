@@ -1,7 +1,6 @@
 # scpark-network
 
-Reproducible pipeline for **"Pseudo-replication in affiliation-string co-authorship
-networks: node identity manufactures certainty, hyperauthorship manufactures effect"**
+Reproducible pipeline for **"Pseudo-replication and composite degree in affiliation-string co-authorship networks: node identity manufactures certainty, hyperauthorship carries much of the effect"**
 (Hung-Chi Chang, Short Communication submitted to the *Journal of Informetrics*,
 September 2026). The full fourteen-item reporting protocol and every robustness
 check are given in the Supplementary Material (`docs/`).
